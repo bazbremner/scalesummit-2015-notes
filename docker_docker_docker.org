@@ -1,0 +1,154 @@
+Container talk. Busy session, a little late in. I'll try to keep up :)
+
+* Docker docker docker
+- Lots of SV start-ups all seem to be using docker
+- VCs are risk averse, don't like change, but interesting that they
+  all put faith in a 2 year old tool
+- Just because SV are using a thing, doesn't mean you should too
+- Docker came from DockCloud PaaS
+  - Docker was a byproduct
+- "Docker has temporary killed PaaS"
+  - Heroku worker like model of PaaS
+- "Docker is a gateway drug"
+  - Don't need a Centos 5 box to package things was the first step
+  - Transforms infrastructure and organisation
+  - Particularly true when you have a lot of teams and apps, allows to
+    standardise on a number of things by the externalisation (see
+    below).
+    - Consider org with 180 apps, you just can't follow that
+      - Add SmartStack, Zipkin, you can trace all the requests through
+      - Centralise your logs, you should probably do that anyways
+
+* Count of different tech (~50 in room)
+- 2x Docker in prod
+- 1x CloudFoundry
+- 4x Mesos
+- 1x Kubenetes
+
+* Are we going to hand roll it ourselves badly, or is it better to use standard tech
+- There is a feeling among large organisations that you need to start
+  again when it comes to PaaS. Containers on their own is a start. 
+- Adoption to public cloud is slower than we expected (AWS, Google
+  Compute etc) - IaaS.
+  - Fear of investment, lock-in, time may have slowed things
+- Architecture of running in a container isn't terribly interesting
+  (this may be a good thing)
+- Developer work flow being closer to what happens in production with
+  containers is powerful
+- "The workflow gains...is so massive"
+  - Same person: "I hate docker it sucks", but the workflow is a big
+    change for the better
+
+Lots of people seem to be coming at PaaS from different angles, but
+seem to be meeting in the middle - CloudFoundry-like things that you
+can push Docker images into
+
+* Dividends
+** Docker and containers
+- Containers are a low level implementation detail
+- It depends on your use case as to what the benefits are
+- You're going to learn a lot about the failure modes of layered file
+  systems :)
+- Might be a good solution to Ruby or Python packaging for a low level
+  example
+- Externalises complexities
+  - Router
+  - LB
+  - Even how people work on bits of code
+  - Now you have to start thinking about this. Now you have a
+    distributed system with its problems
+- Value depends on whether or not you're thinking like a dev or
+  thinking like an ops problem
+  - Tooling bad, so you may end up rolling your own. Docker has got
+    this right
+- Containers + devops + microservices (yay, buzzwords!) can allow for
+  organisations to scale - smaller, empowered teams.
+
+* Tech adoption
+- Development team make decisions all of the time. Ex: dev team railing
+  against using JIRA :)
+  - Tech adoption happens, all the time.
+- Cost drives adoption
+  - Docker/containers might drive a move to a consolidation of
+    hardware
+    - Could do this with other tech, of course
+- Docker tackles this on cost fronts
+
+* Very hard to find companies to go and pay to do containers right now (and give support)
+- Google container in public beta
+- Docker will take money
+- Enterprise CoreOS
+- Flocker
+
+* Immuntible containers
+** How do you deploy your containers (focus was on deploying apps)
+- Different use cases
+  - It's not just about deploying apps
+  - Could be for isolation for tests
+- Nothing stopping you running containers like AWS nodes, for example
+  - lift and shift would work
+  - you're probably losing most of the value
+- Blue/Green + Canary
+  - Add 10% new containers
+    * bleed traffic over
+    * depending on team, manual test or 10 min with low errors start
+      switch
+    * start up parallel infra, switch over (blue/green)
+- Metadata in container
+  - How to update, start, restart etc
+  - Ex: add DNS entry
+    - start container on dev
+    - push to git repo
+    - container run, look to see what update method is for DNS node
+    - follow that method, reloads DNS server
+    - overnight, CI box will bake that change in for new containers
+      - so diffs are only since the last CI rebuild.
+      - helps with the rebuilds
+- New(er) way of working: you don't modify things by making
+  changes. You make things by using a well defined API
+- Containers and management tools use the introspection APIs, can be
+  shared.
+  - The future may be tooling on top of standard introspection data
+  - Ex: find all containers that have been around for a week
+  - Ex: updating all containers following the update data/methods
+    returned
+
+* Given so many people in the room, why so few using it
+- Docker daemon crashes, containers die, not good
+- Lack of patterns
+  - Maturity of the group, not just of the individual
+  - Need some pioneers
+- Still bleeding edge, don't like fighting the new stuff
+- "I won't run it for critical infrastructure"
+  - However, trialing on disposible and/or redundant nodes - DNS nodes
+    for example. Good proving ground to learn the tech.
+  - Security is pretty scary
+  - IO is pretty terrible
+  - Positives:
+    - Iteration is really fast
+    - Compared to existing CM (Chef, puppet etc), less likely to be
+      making radical changes to infra. Docker is entirely different;
+      you're the odd one out if you don't burn servers to the ground
+  - Speed is better than even on IaaS - can't get that many VMs from AWS
+- When you run complex systems, the way we do monitoring, diagnosis,
+  logging etc _has_ to change. It doesn't scale with complex systems
+
+* So, if you're burning everything to the ground and doing new things all the time, how do you test?
+- Teams that went cloud native, not lift and shift from datacentres,
+  this isn't that much of a jump into containers
+- Some teams bring up persistent mirrors for test environments
+- Other teams already down the routine of burning machines to the
+  ground after testing is over
+
+* Lots of warnings about re-inventing the wheels
+- You'll just end up building CloudFoundry
+- "Blog driven development"
+
+* Networking in Docker
+- Lots of laughs
+- Networking is a problem, but running out of time, no helpful advice.
+
+* Random tool mentions
+- Docker Machine, go app, local dev and allows to push into IaaS,
+Digital Ocean etc 
+
