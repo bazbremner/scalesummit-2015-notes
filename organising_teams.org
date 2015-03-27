@@ -1,0 +1,150 @@
+Opening point: big teams, knowledge is spread thinly, changes require
+talking to lots of people. Obvious fix seems to be smaller teams, but
+are there other approaches and how have people deal with this
+
+* If all the knowledge is in one place, the rest of the team doesn't know to go and talk to that one person
+- Have a continuum.
+  - Senior devs split 70/30.
+    - 70% coding
+    - 30%: something else: management, domain expect, architect
+      - architect
+        - draw boxes, but get to thing about who knows what
+      - generalists
+      - Teams size 4-30.
+        - Larger teams: ~2 architects, some subject matter experts
+          - Bigger teams, driven by business
+* Effective team size?
+- depends how you architect things
+    - Microservices help to scale the team
+      - Have a few people focusing on a self-contained unit
+      - But need to connect the dots
+    - Monolith
+      - More likely to tread on toes, 
+
+* Some teams build up because someone counts number of skills
+- Build the team as you need the skills
+  - might avoid having too many people upfront
+
+* Trying to move people across teams isn't always easy
+- Business domain knowledge lost
+- Ramp up time
+- But then the hidden cost is single points of failure
+
+
+* No engineering team have slack
+- Lots of disagrrement on this point
+- Slack only exists if you create it
+- Convince the business that you need the time, give room to improve
+  systems and the teams, soak up the ramp up time
+- If you don't build in some slack, you'll end up with the IT bus.
+- Core team, plus rotation
+  - Allows for R&D
+  - Improvements
+ 
+* TV company
+- Big company, lots of divisions, politics
+- Tragety of the commons when looking for support from business units
+  for a common platform
+- Trying to get sign-off to have engineering to maintain a common
+  platform
+
+* Podcast about Walterson's bio of Jobs
+- Apple have divisions
+  - but no individual P&L
+  - can make some of the politics go away
+  - everyone drives to make the whole company do better
+
+* Use data
+- Use language that your higher-ups understand
+  - Talk about the risk
+  - Justify costs to the business
+- Government have been making big changes
+  - Consider the performance platform - stats about lots of
+    transactions
+
+* Spotify released 2x 50 min videos of teams' working practices
+- Build tools so good other teams want to use them
+- "Code wins arguments"
+- "Beg forgivenness, rather than ask for permission"
+
+* Netflix
+- Try to avoid team going away for a for a while, nothing achieved
+- Have a couple of teams compete, building things that people need.
+- Extract the best solution, make available 
+
+* Does team size match the system?
+- If you don't struture your software in a way that allows teams to
+  work automonously, you're going to have people stepping on toes
+- Try to break the teams, will the code follow?
+  - No: both teams just cloned the original code base and they slowly
+    diverged
+  - Just splitting the teams doesn't change anything
+  - make a decision and have a vision. They start working towards it.
+    - Must explicitly work on moving code and allow the team to change
+      around it.
+
+* No harm in organising around division/business needs.
+  - "Interest Groups" an alternative way to getting people together
+    that work on systems and can influence direction of shared
+    tech/tools
+
+* Dan Pink's RSA Animate talk
+- Empowerment
+- Mastery
+- Motivation
+- Book called "Drive"
+
+* Be motivated
+- People leaving can trump business decisions
+- Make yourself redundant in your current position, opens up
+  possibilities to go and do other things
+  - A good thing to encourage in a team, allows for mobility and
+    knowledge sharing
+  - But this might only work if the organisation is good at
+    recognising different personalities
+
+* Q: Engineering vs R&D, engineers want to all go do R&D, how to keep people on the engineering thing
+- Why do they hate it?
+  - Are they totally competent?
+  - Specialists can help, parachute in, build up skills, bring in more
+    information
+  - Look at DevOps.
+    - Question approaches, recognise the pain and fix it right there
+    - Can make everyone's life easier
+    - Pairing is a great way to coach
+  - So bring R&D and Engineers together
+  - Throw people at the conservative researchers :)
+- As with management, need to phrase in the right language to sell the
+  benefits
+- Comparison: real science labs:
+  - Technicians add value to science labs
+  - Researchers who don't want technicians around probably aren't
+    doing the right thing and are missing out on support and value.
+- Always keep an eye on what the big picture is, local optimisations
+  can be dangerous
+
+* Goverment has had similar issues
+- Experts in the business of government
+- Top down, so lower levels just follow a series of instructions
+- The desired outcome is lost
+  - Do something to bring groups together and two understand the
+    desired goal
+  - Workshops might be preachy, can feel like groups are being told
+    they're not doing 'a good job'
+  - Different approaches for different people
+    - Hands on
+    - Workshops
+- It's not just about making a decision, need to explain it to the
+  rest of the team, make sure they agree or people will be
+  disenfranchised.
+- Put a deadline on decisions
+  - If something better doesn't come up, we'll go with X
+  - The McDonalds answer to "what's for lunch" - can drive better solutions.
+
+* US Marines actually moving away from command and control
+- The paper that describes Waterfall says don't do it!
+  - Sounds like we're starting to learn that
+- Dunbar's number
+  - 150+ for max limit of a village, tribe
+  - ~ 5 for close connections
+- Harvard Business Review? Ideal team = 5.x people
