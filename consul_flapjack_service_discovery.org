@@ -1,0 +1,90 @@
+- One person talking about using etcd for service discovery as they're
+  already experimenting with CoreOS
+- etcd just been re-written from the ground up for v2.0
+
+** Bootstrapping
+- Challenges setting up etcd cluster that might be better in Consul is
+  the bootstrapping. How does the first node talk to other nodes?
+- DNS probably the easiest way
+- discovery coreos service offered by CoreOS
+- Chef search been handy when setting up ZooKeeper clusters
+
+
+* Q: AWS and cloud platforms, how do you organise your deployments
+- First step: make sure you're deploying across AZes in AWS (hopefully this
+  is obvious)
+- Returning results from within a single AZ useful for latency
+  reseasons
+- Raft based systems need to be quite close to each other in network
+  terms.
+  - In a two AZ setup, this can be awkward
+    
+* Anyone using Smartstack?
+- Yup, pretty simple, few people here using it
+  - You still need to get the service discovery sorted and
+    stable. Once that's done, you're probably good.
+
+* Anyone using service discovery purely using AWS API?
+- Some people are.
+  - Concern is that when you're starting up a lot of machines, that's
+    probably when AWS is under stress and APIs are doing to start
+    misbehaving, 
+- Would be nice if Amazon returned quota info in response, but they'd
+  need to tell you want that is ;)
+
+* hands up for people using etcd, consul et cetera in prod
+- about half the room put a hand up
+- Few war stories
+  - Zookeeper, one node in weird state
+  - Consul using fact to 
+- Mention of confd, gconf for etcd and consul template.
+  - 10k keys in YAML hard work with consul template, but OK on a t2.micro
+- General consensus is that is generally works, not so scare
+** Anything bad to say about consul?
+   - Used as distributed lock. Masters, no agent.
+     - 5 node cluster, does get hammered (Every machine in estate, 1-2
+       qps)
+     - Still just works.
+   - Still awaiting ACL/auth, coming in 0.5.0.
+   - SSL may be a new thing
+   - Make sure you disable the console mode!
+
+* Anyone using consul watch?
+- There's a SysAdvent post from 2014 to read.
+- Few people using it.
+
+* Anything else that people want to know?
+** How to restrict access to trees of keys in Consul?
+- The ACLs should cover that
+** "I need time!" - how to justify getting service discovery in
+- Very chicken and egg, need service discover ahead of scaling out,
+  but can't justify until you have you scale out.
+- Zookeeper has been the only kid on the block for a while
+- DNS based services and good to explain to other people. DNS is after
+  all a sort of discovery service.
+** What's the Consul uptake like?
+- Open source in this space still very new
+- But lots of open source is coming out of companies
+- Early days yet and lots of politics between the company-sponsored
+  things.
+** Are we going to see an explosion of service discovery days?
+- ..and logging, and monitoring, etc :)
+- Consul and etcd both written in Go, seems hard to convert into
+  libraries.
+  - Might be something to say about writing something that can be
+    shared
+
+* Reminder: not everyone is running on AWS. (Slight tangent)
+- War stories for every time there's a Xen vuln :)
+- Three that are on AWS also on other cloud
+- Two in the room on their on bare tiny
+
+* Tangent: if you're in AWS, lock down the instance roles
+  - lock down to IP address
+  - Does get rotated after 15-20 min (con
+
+* Flapjack
+- Started as a whole monitoring system, now re-focused on escalations
+  and notifications
+- Bulletproof.com.au
+- No-one here using it. :(
