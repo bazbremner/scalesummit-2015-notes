@@ -1,0 +1,97 @@
+HTTP resquest routing. Problems with multiple HTTP requests, retry
+across multiple servers, which has issues.
+Google make multiple requests to back end services, fastest response
+wins, others get dropped on the floor.
+
+What are people doing.
+
+* Look at Google talk at Velocity
+- Perhaps not everything is being duplicated
+- However, retry if first request is responded to within an SLA (10ms,
+  for example), then a second request.
+
+* Response times get complex
+- If you have many layers in your stack, then 99th percentile ("P99") on
+  every system has a big effect on overall system, affects 90th
+  percentile times.
+- Marking systems that take to long as down and move on to other systems
+
+* Varnish
+- Useful to be able to serve stale content, rather than having to go
+  to the origin and wait for it. Instead serve stale first and update
+  later.
+
+* What happens if all backends are off on the same reason
+- DB goes down for example
+- Now you're retrying across many backend servers, all are down and
+  now you're making it worse with more requests to boot
+
+* Example setups
+** One
+- Mostly read-only, some writes when content is update
+- Read-only traffic marked with a "read-only" header when going
+  through haproxy
+- Writes get marked as a 'dirty' session, so that they see a
+  consistent view of their new data immediately after it's submitted
+  so the user can see their submission goes through
+** Two
+- Everything goes into Varnish, directed to the read-only bits of the
+infra or to write/read-write parts of the infra.
+- Shared Varnish instance for internet traffic coming in, other
+  instance (well, cluster) in front of all back services
+
+* Lots of talk around read heavy solutions, what about heavier writes
+- SOA/microservices can make a big difference
+- Read-only vs different read/write ratios can make a difference
+
+* Interest in different failure modes
+- One story of back pressure being on network pipes, ended up
+  requiring high percentage of users being turned away
+- Serving content/search beats ads
+  - Although sometimes you have to slow the content down to give the
+    ad networks a chance to catch up
+- Degraded mode is useful if your business case allows for it
+  - apps can degrade, or serve old content if backends are slow
+ 
+* Circuit breakers
+- Lots of talk, no-one doing it
+- Detect a problem, hard break in the system. _Manual_ interaction
+  required to re-enable that thing.
+  - Why not automated tests to re-enable?
+    - Something goes wrong under load, fix load, monitoring says OK,
+      traffic returns, circuit breaks, flip flop. Bad.
+
+* How do track dependancies between microservices?
+- Bake it into the app
+  - let an app tell you (XML etc) all things it depends on and their
+    states and given those states, is it up, or not
+  - Don't try to externalise that.
+    - Changes to discontinuity where checks get out of sync with code
+      in other repos
+- Checking health of dependent services
+  - One opinion: you _must_ check the backend asynchronously
+    - you can't check multiple dependancies on each request
+  - Uber's hacheck. Timed HTTP proxy
+    - Useful in front of thundering herd of healthchecks if 1000's of
+      haproxy taking out service
+
+* What should checks be doing, where should that sit?
+- Monitoring checks should be able to track more than up or down
+- DB replication lag for example
+  - Application should know about it, but the amount of lag one app
+    can tolerate is different to another
+  - Infrastructure 
+
+* Mention of Mongrel2 and ZeroMQ
+- Decouples requests and workers take requests, rather than
+  traditional web server shoving requests at servers that may have
+  recently gone offline
+- How does a service take a job?
+  - Similar to a Rack - standard protocol, clients would have to talk
+    the right protocol
+    - Have to build this into the application
+
+* Tools
+- Mailgun's Vulcan; request router. Perhaps not prod ready yet.
+- AirBNB Smartstack. nerve and synapse. service discovery, haproxy
+- If you're using Zookeeper, seems reasonable, might be easier options now.
