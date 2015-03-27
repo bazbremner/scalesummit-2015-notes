@@ -1,0 +1,163 @@
+* MoJ
+** have ethical hacker
+- automated injection attachs
+- nuanced un-automatable issues human tested
+** Brakeman
+- CSRF
+- XSS
+
+* is there a low bar?
+- With security testing should we do doing certain things before it
+  goes to prod
+- run the low value stuff yourself, makes the pentesters higher
+  value
+
+* bringing in pentesters
+- On-site; worked alongside dev team
+- Used Nessus, Zap, no extra value
+
+* Convince developers that security is just as important as having unit tests
+- Make sure that developers don't throw things over the wall. "It's
+  the ethical's hackers job to find"
+- Come to think of dev and ops working together
+- Cultural issue
+- Not currently in the right place in the 'Maslow's hierarchy",
+  security needs to be moved down.
+
+"Look at Sony: a little bit of face in their egg" - got laughs.
+
+- Good to see that this year was 'the year of the hack', but people
+  are finally sitting up and starting to consider what means to
+  systems.
+
+* Yahoo, know issues, 1000 hacks/sec - graphed by the Paranoids team.
+- how does this get embedded?
+  - Some people who's entire job is finding shit to break, raising
+    bugs. Uber paranoid sorts.
+  - Others that are normal devs, did some paranoid training, then
+    rotated into team a small percentage of the time.
+  - The rotation helped to give a low level of common issues, although
+    tooling has caught up to cover some of those issues.
+
+* Development house thinking of running across all clients.
+- But then alerts get ignored the same way as Nagios alerts would be
+  ignored
+- End up with a load of whitelists
+- Can lead to a lot of false positives.
+- Consider the risks, decide if things are important, but it takes
+  experts to make that call.
+
+
+* Tools
+- Gauntlet
+- Selenium style 
+- Zap proxy - stealing cookings
+** Bake the tools in early, don't delay making decisions and workload until later
+- Easier to see one thing changes, one test breaks, easier to put two
+  and two together
+
+* Where does testing go in the pipeline?
+- When having to build a pipeline, integration test, need to spin up a
+  whole environemnt, doesn't happen on intergration 1, it's a long way
+  down the line
+- Counter: spinning up VMs that run all the things. Not possible with
+  security right now
+
+* Interesting angle: PR as an attack vector
+- Introduce a dangerous change, gets merged
+- Maliagned C comptention. Submit code that doesn't encrypt 1/256
+  times.
+
+* Story about AT&T C compiler
+- Vuln, got patched after a week or so
+- Compilers are exploited, can't easily rebuild from source because
+  your compiler is exploited. Fun fix.
+- Trusting Trust paper from 1970s
+
+* Consider writing automated tests for security issues, just as you would features.
+- Consider Ubuntu vulns. Write a test to make sure boxes are patched
+  _and_ that new boxes have the fixes.
+
+* Iron Maven
+- Interesting concept - new versions go red in system, check new
+  versions, do you trust it?
+
+* Attack the banks
+- Just exploit Log4j and let it propagate through Java build
+  systems :)
+
+* Military - trusted computing base
+- Minimal set of everyhing, but easier to validate and check
+- Delaying an attack by 10 minutes might be as useful as preventing it.
+
+
+* If there's a bug, you have to hope vendor patches quickly
+- you don't have to wait on the vendor 
+- Cultural problem - you're going to have to get into the code and
+  patch it now and again
+- Also, vendors don't always fix all issues, Ex: Redhat didn't update
+  ntpd because the default config was safe.
+
+* Containers
+- Little trust in the base images
+- Layers of trust, possible to get in on the ground floor
+
+* curl | bash
+- A kitten dies
+- Risk vs cost trade off
+- sudo apt-get install package, there's a script there anyway, is it
+  really any different?
+
+* I want to see Travis green, Secure-o-tron green
+- Are the basics covered, are we standing on the shoulders of giants?
+- "Paranoid Travis", would be nice
+
+* Culture
+- We have DevOps, sharing ideas and tooling
+- But then try to hire a network engineer that uses git, tools, writes
+  tests.
+- Too much on Dev and Ops, need to look at the whole organisation
+- Devops is not taking sysadmins and teaching them git. Trained Devs
+  and Ops out of their teams and had overlap.
+- Need to do the same with other disiplines, but security folk are
+  still going to want/need to do the crypto, for example.
+
+* Security conf: B-side London
+- Sold out within 3 seconds
+  
+* Depends on your business
+- Lots of Governemnt, but also Ecommerce it matters
+- Moonpig recent high profile case; didn't seem to affect bottom line
+- Businesses often don't care until it's too late.
+- Has to start from the top and be pushed down
+  - No: not always look at other situations, can steal little bits of
+    time and can do it bottom up.
+  - Easier if mandated from the top down
+  - In theory having the high levels signing off on the risks requires
+    risks to be clearly explained and high level officers being able
+    to understand and make decisions
+  - Pharma, Commerce, Governemtn
+  - All the high profile hacks, still regulated industries
+    - But is that just that unregulated industries don't have to
+      disclose hacks?
+    - Probably is much worse
+  - Regulated industries are often 'best efforts' to mean standards,
+    doesn't always mean secure.
+* Lots of high profile leaks
+
+* Security theatre?
+- It's looks secure, so I trust it. Not always the same thing
+
+* How to pass on the basic information
+- Microsoft Book: Threat Modelling
+- Bruce Schnier's books
+- Cambridge Professor, free PDFs. Ross Anderson.
+- Deck of cards with attacks.
+- GDS looking to set up a community of practice; get together.
+  - How do we find people that work here
+
+* Talked of static code analysis; XSS, CSRF etc
+- One team attempted: jbehave style process attacks
+  - "mis-use cases"
+  - Red team, go in room and attack systems
+  - "Anti-personas": criminal gangs, governments etc
