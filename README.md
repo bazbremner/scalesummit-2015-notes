@@ -8,5 +8,7 @@ to cover more of the day's events.
 
 * [James Abley's notes](http://www.confnotes.club/events/scale-summit-2015/2015-03-27.html)
 * [Matt Bostock's notes](http://tech.mattbostock.com/2015/03/28/scale-summit/)
+* [Steve Marshall's notes](https://gist.github.com/SteveMarshall/1f2d733f2cb8dda330bc)
+  from the What's Changed Since Last Year session
 
 If you've taken notes that aren't mentioned here, please open a PR!
